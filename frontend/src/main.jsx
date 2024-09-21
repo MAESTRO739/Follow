@@ -6,13 +6,13 @@ import { ChakraProvider } from '@chakra-ui/react'
 import { extendTheme } from '@chakra-ui/react'
 import { mode } from '@chakra-ui/theme-tools';
 import { ColorModeScript } from '@chakra-ui/react'
-import { BrowserRouter } from 'react-router-dom"'
+import { BrowserRouter } from 'react-router-dom'
 
 const styles = {
   global: (props) => ({
     body: {
       color: mode('gray.800', 'whiteAlpha.900')(props),
-      bg: mode('gray.100', '#101010')(props),
+      bg: mode('gray.100', '#0A0A0A')(props),
     }
   })
 };
@@ -24,7 +24,7 @@ const config = {
 
 const colors = {
   gray: {
-    light: "#616161",
+    light: "#777777",
     dark: "#1e1e1e"
   }
 };
