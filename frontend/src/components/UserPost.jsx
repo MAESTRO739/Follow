@@ -135,17 +135,18 @@ const UserPost = ({
               </Flex>
               <Box 
                 className='icon-container' 
-                w={8} 
-                h={8} 
                 _hover={{ backgroundColor: iconHoverColor }} 
                 color={"#777777"} 
                 title="More" 
                 cursor={"pointer"} 
                 onClick={(e) => e.preventDefault()}
                 overflow="hidden"
+                display="flex"    
+                alignItems="center" 
+                justifyContent="center"  
               >
                 <Menu>
-                  <MenuButton ml={'-1px'}>
+                  <MenuButton>
                     <BsThreeDots size={18}/>
                   </MenuButton>
                   <Portal>
