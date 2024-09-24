@@ -7,6 +7,7 @@ import { extendTheme } from '@chakra-ui/react'
 import { mode } from '@chakra-ui/theme-tools';
 import { ColorModeScript } from '@chakra-ui/react'
 import { BrowserRouter } from 'react-router-dom'
+import { ColorProvider } from './ColorProvider.jsx';
 
 const styles = {
   global: (props) => ({
@@ -26,7 +27,43 @@ const colors = {
   gray: {
     light: '#777777',
     dark: '#1e1e1e'
-  }
+  },
+  bgColor: { 
+    light: '#ffffff',
+    dark: '#181818'
+  },
+  borderColor: { 
+    light: '#D5D5D5',
+    dark: '#2D2D2D'
+  },
+  avatarBorderColor: { 
+    light: 'rgba(0, 0, 0, 0.15)',
+    dark: 'rgba(243, 245, 247, 0.15)'
+  },
+  highlightedBorderColor: { 
+    light: '#000000',
+    dark: '#F3F5F7'
+  },
+  iconHoverColor: { 
+    light: '#e0dfdf',
+    dark: '#3a3a3a'
+  },
+  bgHoverColor: { 
+    light: '#f0efef',
+    dark: '#252525'
+  },
+  threadColor: { 
+    light: '#E0E0E0',
+    dark: '#333639'
+  },
+  postTextColor: { 
+    light: '#000000',
+    dark: '#F3F5F7'
+  },
+  countColor: { 
+    light: '#424242',
+    dark: '#cccccc'
+  },
 };
 
 const theme = extendTheme({ config, styles, colors })
@@ -36,7 +73,9 @@ createRoot(document.getElementById('root')).render(
     <BrowserRouter>
       <ChakraProvider theme={theme} >
         <ColorModeScript initialColorMode={theme.config.initialColorMode} />
-        <App />
+        <ColorProvider>
+          <App />
+        </ColorProvider>
       </ChakraProvider>
     </BrowserRouter>
   </StrictMode>,

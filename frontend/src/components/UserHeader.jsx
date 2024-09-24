@@ -1,10 +1,11 @@
 import { Avatar, Box, Flex, Link, Menu, MenuButton, MenuItem, MenuList, Portal, Text, VStack, useToast } from '@chakra-ui/react'
-import PropTypes from 'prop-types'
 import { BsInstagram } from 'react-icons/bs'
 import { CgMoreO } from 'react-icons/cg'
+import { useColors } from '../ColorContext';
 
+const UserHeader = () => {
+  const { bgColor, borderColor, avatarBorderColor, highlightedBorderColor, iconHoverColor } = useColors();
 
-const UserHeader = ({ bgColor, borderColor, avatarBorderColor, highlightedBorderColor, iconHoverColor }) => {
   const toast = useToast()
   const copyURL = () => {
     const currentURL = window.location.href;
@@ -21,7 +22,7 @@ const UserHeader = ({ bgColor, borderColor, avatarBorderColor, highlightedBorder
   return (
     <Box 
       bg={bgColor}
-      borderTopRadius={'1rem'}
+      borderTopRadius={'2xl'}
       border={"1px solid"}
       borderColor={borderColor}
       borderBottom={'none'}
@@ -100,13 +101,5 @@ const UserHeader = ({ bgColor, borderColor, avatarBorderColor, highlightedBorder
     </Box>
   )
 }
-
-UserHeader.propTypes = {
-  bgColor: PropTypes.string.isRequired,
-  borderColor: PropTypes.string.isRequired,
-  avatarBorderColor: PropTypes.string.isRequired,
-  highlightedBorderColor: PropTypes.string.isRequired,
-  iconHoverColor: PropTypes.string.isRequired
-};
 
 export default UserHeader

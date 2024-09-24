@@ -82,7 +82,7 @@ const Actions = ({ liked, setLiked, iconHoverColor, countColor, likes, replies, 
 					display="flex"
 					alignItems="center"
 					justifyContent="center"
-					pb={1}
+					pb={1.5}
 				>
 					<ShareSVG />
 				</Box>

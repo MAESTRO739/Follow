@@ -2,23 +2,20 @@ import { Avatar, Box, Flex, Image, Link, Menu, MenuButton, MenuItem, MenuList, P
 import { BsThreeDots } from "react-icons/bs"
 import Actions from "./Actions"
 import { useState } from "react"
-import PropTypes from "prop-types"
+import { useColors } from "../ColorContext"
+import PropTypes from 'prop-types'
 
-const UserPost = ({ 
-                    bgColor, 
-                    borderColor, 
-                    avatarBorderColor, 
-                    iconHoverColor, 
-                    bgHoverColor, 
-                    threadColor, 
-                    postTextColor,
-                    countColor, 
-                    likes,
-                    replies,
-                    reposts,
-                    postImage,
-                    postTitle
-                  }) => {
+const UserPost = ({ likes, replies, reposts, postImage, postTitle  }) => {
+  const { bgColor, 
+          borderColor, 
+          avatarBorderColor, 
+          iconHoverColor, 
+          bgHoverColor, 
+          threadColor, 
+          postTextColor,
+          countColor
+        } = useColors();
+
   const [liked, setLiked] = useState(false)
 
   const toast = useToast()
@@ -98,14 +95,14 @@ const UserPost = ({
             </Box>
           </Flex>
 
-          <Flex flex={1} flexDirection={"column"} gap={2} minWidth={0}>
+          <Flex flex={1} flexDirection={"column"} gap={2} minWidth={0} mt={-2.5}>
             <Flex gap={1} w={'full'} alignItems={'center'} justifyContent={'space-between'}>
               <Flex 
                 gap={{ base: 0, md: 1 }} 
                 w={'full'} 
                 flexDirection={{ base: "column", md: "row" }} 
               >
-                <Flex alignItems="center" gap={1}>
+                <Flex alignItems="center" gap={1} mt={{ base: 2, md: 0 }}>
                   <Text 
                     color={postTextColor} 
                     fontSize={'md'} 
@@ -118,7 +115,7 @@ const UserPost = ({
                   </Text>
                   <Image src="/verified.png" w={4} h={4} mr={'2px'} mt={'3px'} alt="Verified Icon"/>
                 </Flex>
-                <Flex gap={1} alignItems="center" mt={{ base: -1, md: 0 }}>
+                <Flex gap={1} alignItems="center" mt={{ base: -1, md: 0 }} mb={{ base: 2, md: 0 }}>
                   <Text 
                     fontSize={'md'} 
                     color={'gray.light'} 
@@ -158,7 +155,7 @@ const UserPost = ({
               </Box>
             </Flex>
 
-            <Text color={postTextColor} fontSize={'md'} whiteSpace="normal" wordBreak="break-word" mt={'-4px'} mb={'-6px'} lineHeight={'1.3'}>{postTitle}</Text>
+            <Text color={postTextColor} fontSize={'md'} whiteSpace="normal" wordBreak="break-word" mt={'-12px'} mb={'-6px'} lineHeight={'1.3'}>{postTitle}</Text>
             {postImage && (
               <Box borderRadius={8} overflow={'hidden'} border={'1px solid'} borderColor={borderColor} mt={1.5} mb={-1}>
                 <Image src={postImage} w={'full'}></Image>
@@ -181,20 +178,12 @@ const UserPost = ({
   )
 }
 
-UserPost.propTypes = {
-  bgColor: PropTypes.string.isRequired,
-  borderColor: PropTypes.string.isRequired,
-  avatarBorderColor: PropTypes.string.isRequired,
-  iconHoverColor: PropTypes.string.isRequired,
-  bgHoverColor: PropTypes.string.isRequired,
-  threadColor: PropTypes.string.isRequired,
-  postTextColor: PropTypes.string.isRequired,
-  countColor: PropTypes.string.isRequired,
-  likes: PropTypes.number.isRequired,
-  replies: PropTypes.number.isRequired,
-  reposts: PropTypes.number.isRequired,
-  postImage: PropTypes.string.isRequired,
-  postTitle: PropTypes.string.isRequired
-}
-
 export default UserPost
+
+UserPost.propTypes = {
+  likes: PropTypes.any.isRequired, 
+  replies: PropTypes.any.isRequired, 
+  reposts: PropTypes.any.isRequired, 
+  postImage: PropTypes.any.isRequired, 
+  postTitle: PropTypes.any.isRequired, 
+}
