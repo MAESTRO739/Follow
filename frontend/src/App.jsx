@@ -6,7 +6,7 @@ import Header from './components/Header'
 
 function App() {
   return (
-    <Container maxW="620px">
+    <Container maxW={{ base: '100%', sm: '90%', md: '85%', lg: '672px' }}>
       <Header />
       <Routes>
         <Route path="/:username" element={<UserPage />}/>

@@ -44,7 +44,7 @@ const UserPost = ({
         pl={6}
         pr={6}
         boxShadow="lg" 
-        w="full"
+        w='full'
         _hover={{ bg: bgHoverColor}}
         transition={'background-color 0.2s ease'}
       >

@@ -26,9 +26,9 @@ const UserHeader = ({ bgColor, borderColor, avatarBorderColor, highlightedBorder
       borderColor={borderColor}
       borderBottom={'none'}
       boxShadow="lg"
-      w="full"
+      w='full'
     >
-      <VStack gap={2} p={6} pt={4} pb={2} boxSizing={'border-box'}>
+      <VStack gap={2} p={6} pt={4} pb={2} boxSizing={'border-box'} alignItems={'flex-start'}>
         <Flex 
           justifyContent={"space-between"} 
           alignItems="center" 
