@@ -6,7 +6,7 @@ import PropTypes from "prop-types";
 import ThreeDotsIcon from "./ThreeDotsIcon";
 import Actions from "./Actions";
 
-const Comment = ({ avatar, name, username, commentText, likes, replies, reposts, shares, createdAt, copyURL }) => {
+const Comment = ({ userAvatar, name, username, commentText, likes, replies, reposts, shares, createdAt, copyURL }) => {
   const { bgColor, borderColor, postTextColor, avatarBorderColor, iconHoverColor, countColor } = useColors();
 
   const [liked, setLiked] = useState(false)
@@ -27,7 +27,7 @@ const Comment = ({ avatar, name, username, commentText, likes, replies, reposts,
           <Avatar 
             size={'md'} 
             name={name}
-            src={avatar} 
+            src={userAvatar} 
             borderWidth={'1px'}
             borderStyle={'solid'}
             borderColor={avatarBorderColor}
@@ -63,7 +63,7 @@ const Comment = ({ avatar, name, username, commentText, likes, replies, reposts,
 export default Comment
 
 Comment.propTypes = {
-  avatar: PropTypes.string.isRequired,
+  userAvatar: PropTypes.string.isRequired,
   name: PropTypes.string.isRequired,
   username: PropTypes.string.isRequired,
   createdAt: PropTypes.string.isRequired,

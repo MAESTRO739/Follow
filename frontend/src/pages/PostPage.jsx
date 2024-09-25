@@ -78,7 +78,7 @@ const PostPage = () => {
       </Box>
 
       <Comment 
-        avatar={'https://bit.ly/ryan-florence'} 
+        userAvatar={'https://bit.ly/ryan-florence'} 
         name={'Ryan Florence'}
         username={'RyanFlorence'} 
         commentText={'Nice picture!'}
@@ -90,7 +90,7 @@ const PostPage = () => {
         shares={1}
       />
       <Comment 
-        avatar={'https://bit.ly/code-beast'} 
+        userAvatar={'https://bit.ly/code-beast'} 
         name={'Christian Nwamba'} 
         username={'ChristianNwamba'} 
         commentText={'Damn, maybe you are actually human'}
@@ -102,7 +102,7 @@ const PostPage = () => {
         shares={2}
       />
       <Comment 
-        avatar={'https://bit.ly/sage-adebayo'} 
+        userAvatar={'https://bit.ly/sage-adebayo'} 
         name={'Segun Adebayo'} 
         username={'SegunAdebayo'} 
         commentText={'🔥🔥🔥'}

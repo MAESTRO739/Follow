@@ -4,7 +4,7 @@ import { useState } from "react"
 import { useColors } from "../ColorContext"
 import PropTypes from 'prop-types'
 import UserInfo from "./UserInfo"
-import AvatarGroup from "./AvatarGroup"
+import AvatarGroup from "./ThreadAvatars"
 import ThreeDotsIcon from "./ThreeDotsIcon"
 
 const UserPost = ({ likes, replies, reposts, shares, postImage, postTitle, createdAt }) => {
