@@ -1,9 +1,9 @@
 import { Flex, Box, Text } from "@chakra-ui/react"
 import PropTypes from "prop-types";
 
-const Actions = ({ liked, setLiked, iconHoverColor, countColor, likes, replies, reposts }) => {
+const Actions = ({ liked, setLiked, iconHoverColor, countColor, likes, replies, reposts, shares }) => {
   return (
-  	<Flex gap={3} ml={'-8px'} minWidth={0} overflow="hidden" onClick={(e) => e.preventDefault()}>
+  	<Flex gap={3} ml={'-8px'} minWidth={0} overflow="hidden" cursor="pointer" onClick={(e) => e.preventDefault()}>
 			<Flex alignItems={"center"} onClick={() => setLiked(!liked)}>
 				<Box
 					className='icon-container'
@@ -31,7 +31,7 @@ const Actions = ({ liked, setLiked, iconHoverColor, countColor, likes, replies, 
 						></path>
 					</svg>
 				</Box>
-				<Text color={countColor} fontSize="sm" ml={'-2px'}>{likes}</Text>
+				<Text color={countColor} fontSize="sm" ml={'-2px'}>{likes + (liked ? 1 : 0)}</Text>
 			</Flex>
 			<Flex alignItems={"center"}>
 				<Box 
@@ -86,6 +86,7 @@ const Actions = ({ liked, setLiked, iconHoverColor, countColor, likes, replies, 
 				>
 					<ShareSVG />
 				</Box>
+				<Text color={countColor} fontSize="sm" ml={'-2px'}>{shares}</Text>
 			</Flex>
 		</Flex>
   )
@@ -147,11 +148,12 @@ const ShareSVG = () => {
 Actions.propTypes = {
   liked: PropTypes.bool.isRequired,
   setLiked: PropTypes.func.isRequired,
-	iconHoverColor: PropTypes.string.isRequired,
-	countColor: PropTypes.string.isRequired,
-	likes: PropTypes.number.isRequired,
+  iconHoverColor: PropTypes.string.isRequired,
+  countColor: PropTypes.string.isRequired,
+  likes: PropTypes.number.isRequired,
   replies: PropTypes.number.isRequired,
-  reposts: PropTypes.number.isRequired
+  reposts: PropTypes.number.isRequired,
+  shares: PropTypes.number.isRequired
 };
 
 export default Actions
