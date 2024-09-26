@@ -105,4 +105,35 @@ const followUnfollowUser = async (req, res) => {
   }
 }
  
-export { signupUser, loginUser, logoutUser, followUnfollowUser };
+const updateUser = async (req, res) => {
+  const { name, email, username, password, avatar, bio } = req.body;
+  const userId = req.user._id;
+
+  try {
+    let user = await User.findById(userId);
+    if (!user) { return res.status(404).json({message: "User not found"}); }
+
+    if (req.params.id !== userId.toString()) { return res.status(403).json({message: "You can only update your own profile"}); }
+
+    if (password) {
+      const salt = await bcrypt.genSalt(10);
+      const hashedPassword = await bcrypt.hash(password, salt);
+      user.password = hashedPassword;
+    }
+
+    user.name = name || user.name;
+    user.email = email || user.email;
+    user.username = username || user.username;
+    user.avatar = avatar || user.avatar;
+    user.bio = bio || user.bio;
+
+    user = await user.save();
+
+    res.status(200).json({message: "User updated sucessfully", user});
+  } catch (error) {
+    res.status(500).json({ message: error.message });
+    console.log('Error in updateUser: ', error.message)
+  }
+}
+
+export { signupUser, loginUser, logoutUser, followUnfollowUser, updateUser };
