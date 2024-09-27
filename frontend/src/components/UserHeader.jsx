@@ -1,21 +1,18 @@
-import { Avatar, Box, Flex, Link, Menu, MenuButton, MenuItem, MenuList, Portal, Text, VStack, useToast } from '@chakra-ui/react'
+import { Avatar, Box, Flex, Link, Menu, MenuButton, MenuItem, MenuList, Portal, Text, VStack } from '@chakra-ui/react'
 import { BsInstagram } from 'react-icons/bs'
 import { CgMoreO } from 'react-icons/cg'
 import { useColors } from '../ColorContext';
+import useShowToast from '../hooks/useShowToast';
 
 const UserHeader = () => {
   const { bgColor, borderColor, avatarBorderColor, highlightedBorderColor, iconHoverColor } = useColors();
 
-  const toast = useToast()
+  const showToast = useShowToast();
+
   const copyURL = () => {
     const currentURL = window.location.href;
     navigator.clipboard.writeText(currentURL).then(() => {
-      toast({
-        title: "Profile link copied.",
-        status: 'success',
-        duration: 3000,
-        isClosable: true,
-      })
+      showToast('Profile link copied', '', 'success');
     });
   };
 

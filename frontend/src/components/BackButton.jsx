@@ -16,6 +16,9 @@ const BackButton = ({ to }) => {
         size="md" 
         variant="solid"
         bg={bgColor}
+        sx={{
+          svg: { color: 'white' },
+        }}
         _hover={{
           bg: bgHoverColor,
           transform: "scale(1.1)",
@@ -27,8 +30,8 @@ const BackButton = ({ to }) => {
         }}
         border={'1px solid'} 
         borderColor={borderColor}
-        onClick={() => navigate(to)}
         transition="transform 0.2s ease-in-out"
+        onClick={() => navigate(to)}
       />
     </Box>
   );

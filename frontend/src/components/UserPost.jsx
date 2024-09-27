@@ -1,4 +1,4 @@
-import { Avatar, Box, Flex, Image, Link, Text, useToast } from "@chakra-ui/react"
+import { Avatar, Box, Flex, Image, Link, Text } from "@chakra-ui/react"
 import Actions from "./Actions"
 import { useState } from "react"
 import { useColors } from "../ColorContext"
@@ -6,6 +6,7 @@ import PropTypes from 'prop-types'
 import UserInfo from "./UserInfo"
 import AvatarGroup from "./ThreadAvatars"
 import ThreeDotsIcon from "./ThreeDotsIcon"
+import useShowToast from "../hooks/useShowToast"
 
 const UserPost = ({ likes, replies, reposts, shares, postImage, postTitle, createdAt }) => {
   const { bgColor, 
@@ -20,21 +21,17 @@ const UserPost = ({ likes, replies, reposts, shares, postImage, postTitle, creat
 
   const [liked, setLiked] = useState(false)
 
-  const toast = useToast()
+  const showToast = useShowToast();
+
   const copyURL = () => {
     const postURL = 'http://localhost:5173/markzuckerberg/post/1';
     navigator.clipboard.writeText(postURL).then(() => {
-      toast({
-        title: "Post link copied.",
-        status: 'success',
-        duration: 3000,
-        isClosable: true,
-      })
+      showToast('Post link copied', '', 'success');
     });
   };
 
   return (
-    <Link href={'/markzuckerberg/post/1'} textDecoration="none" _hover={{ textDecoration: 'none' }}>
+    <Link href={'/markzuckerberg/post/1'} _hover={{ textDecoration: 'none' }}>
       <Box 
         bg={bgColor} 
         border={'1px solid'}

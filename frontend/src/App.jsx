@@ -13,7 +13,7 @@ function App() {
 
   return (
     <Container maxW={{ base: '100%', sm: '90%', md: '85%', lg: '672px' }} mb={16}>
-      <Header />
+      <Header user={user} />
       <Routes>
         <Route path="/" element={user ? <HomePage /> : <Navigate to={'auth'} />}/>
         <Route path="/auth" element={user ? <Navigate to={'/'} /> : <AuthPage />}/>

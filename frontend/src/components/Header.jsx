@@ -1,8 +1,10 @@
 import { Box, Flex, Image, useColorMode } from '@chakra-ui/react'
 import BackButton from './BackButton'
 import { useLocation, useParams } from 'react-router-dom';
+import PropTypes from 'prop-types';
+import LogoutButton from './LogoutButton';
 
-const Header = () => {
+const Header = ({ user }) => {
   const { colorMode, toggleColorMode } = useColorMode()
   const location = useLocation(); 
   const { username } = useParams();
@@ -32,8 +34,18 @@ const Header = () => {
         src={colorMode === 'dark' ? '/light-logo.svg' : '/dark-logo.svg'}
         onClick={toggleColorMode}
       />
+
+      {user && (
+        <Box position="absolute" right={5}>
+          <LogoutButton />
+        </Box>
+      )}
     </Flex>
   )
 }
 
 export default Header
+
+Header.propTypes = {
+  user: PropTypes.object
+}
