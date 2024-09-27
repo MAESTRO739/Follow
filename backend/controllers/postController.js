@@ -1,10 +1,6 @@
 import User from "../models/userModel.js";
 import Post from "../models/postModel.js";
 
-const getAllPosts = (req, res) => {
-  res.send('Get all posts');
-};
-
 const getPostById = async (req, res) => {
   try {
     const post = await Post.findById(req.params.id);
@@ -57,12 +53,28 @@ const updatePost = (req, res) => {
   res.send(`Update post with ID: ${req.params.id}`);
 };
 
-const deletePost = (req, res) => {
-  res.send(`Delete post with ID: ${req.params.id}`);
+const deletePost = async (req, res) => {
+  try {
+    const post = await Post.findById(req.params.id);
+
+    if (!post) {
+      return res.status(404).json({ message: 'Post not found' });
+    }
+
+    if (post.postedBy.toString() !== req.user._id.toString()) {
+      return res.status(401).json({ message: 'User not authorized' });
+    }
+
+    await Post.findByIdAndDelete(req.params.id);
+
+    res.status(200).json({ message: 'Post deleted successfully' });
+  } catch (error) {
+    res.status(500).json({ message: error.message });
+    console.log(error);
+  }
 };
 
 export {
-  getAllPosts,
   getPostById,
   createPost,
   updatePost,
