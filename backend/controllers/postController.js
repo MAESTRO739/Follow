@@ -49,10 +49,6 @@ const createPost = async (req, res) => {
   }
 };
 
-const updatePost = (req, res) => {
-  res.send(`Update post with ID: ${req.params.id}`);
-};
-
 const deletePost = async (req, res) => {
   try {
     const post = await Post.findById(req.params.id);
@@ -74,9 +70,72 @@ const deletePost = async (req, res) => {
   }
 };
 
+const likeUnlikePost = async (req, res) => {
+  try {
+    const postId = req.params.id;
+    const userId = req.user._id;
+
+    const post = await Post.findById(postId);
+
+    if (!post) {
+      return res.status(404).json({ message: 'Post not found' });
+    }
+
+    const isLiked = post.likes.includes(userId);
+
+    if (isLiked) {
+      await Post.updateOne({ _id: postId }, { $pull: { likes: userId } });
+      res.status(200).json({ message: 'Post unliked successfully' });
+    } else {
+      post.likes.push(userId);
+      await post.save();
+      res.status(200).json({ message: 'Post liked successfully' });
+    }
+  } catch (error) {
+    res.status(500).json({ message: error.message });
+    console.log(error);
+  }
+}
+
+const replyToPost = async (req, res) => {
+  try {
+    const postId = req.params.id;
+    const userId = req.user._id;
+    const { text } = req.body;
+    const { name, username, avatar } = req.user;
+
+    if (!text) {
+      return res.status(400).json({ message: 'Text field is required' });
+    }
+
+    const post = await Post.findById(postId);
+
+    if (!post) {
+      return res.status(404).json({ message: 'Post not found' });
+    }
+
+    const reply = {
+      userId,
+      text, 
+      name,
+      username,
+      avatar,
+    };
+
+    post.replies.push(reply);
+    await post.save();
+
+    res.status(200).json({ message: 'Reply added successfully', post });
+  } catch (error) {
+    res.status(500).json({ message: error.message });
+    console.log(error);
+  }
+}
+
 export {
   getPostById,
   createPost,
-  updatePost,
-  deletePost
+  deletePost,
+  likeUnlikePost,
+  replyToPost
 };
