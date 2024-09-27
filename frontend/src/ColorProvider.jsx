@@ -12,6 +12,9 @@ export const ColorProvider = ({ children }) => {
 	const threadColor = useColorModeValue('threadColor.light', 'threadColor.dark');
 	const postTextColor = useColorModeValue('postTextColor.light', 'postTextColor.dark');
 	const countColor = useColorModeValue('countColor.light', 'countColor.dark');
+	const buttonBgColor = useColorModeValue('buttonColors.bg.light', 'buttonColors.bg.dark');
+  const buttonTextColor = useColorModeValue('buttonColors.text.light', 'buttonColors.text.dark');
+	const buttonHoverBgColor = useColorModeValue('buttonColors.hoverBg.light', 'buttonColors.hoverBg.dark');
 
 	const colors = {
 		bgColor,
@@ -23,6 +26,9 @@ export const ColorProvider = ({ children }) => {
 		threadColor,
 		postTextColor,
 		countColor,
+		buttonBgColor,
+		buttonTextColor,
+		buttonHoverBgColor
 	};
 
 	return (

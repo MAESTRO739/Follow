@@ -10,7 +10,7 @@ const Header = () => {
   let backButtonTo = '/';
   let showBackButton = true;
 
-  if (location.pathname === '/') {
+  if (location.pathname === '/' || location.pathname === `/auth`) {
     showBackButton = false;
   } else if (location.pathname.includes(`/post/`)) {
     backButtonTo = `/@${username}`;

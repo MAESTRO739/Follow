@@ -8,6 +8,7 @@ import { mode } from '@chakra-ui/theme-tools';
 import { ColorModeScript } from '@chakra-ui/react'
 import { BrowserRouter } from 'react-router-dom'
 import { ColorProvider } from './ColorProvider.jsx';
+import { RecoilRoot } from 'recoil'
 
 const styles = {
   global: (props) => ({
@@ -64,19 +65,35 @@ const colors = {
     light: '#424242',
     dark: '#cccccc'
   },
+  buttonColors: {
+    bg: {
+      light: '#000000',
+      dark: '#ffffff'
+    },
+    text: {
+      light: '#ffffff',
+      dark: '#101010'
+    },
+    hoverBg: {
+      light: '#424242',
+      dark: '#cccccc'
+    }
+  },
 };
 
 const theme = extendTheme({ config, styles, colors })
 
 createRoot(document.getElementById('root')).render(
   <StrictMode>
-    <BrowserRouter>
-      <ChakraProvider theme={theme} >
-        <ColorModeScript initialColorMode={theme.config.initialColorMode} />
-        <ColorProvider>
-          <App />
-        </ColorProvider>
-      </ChakraProvider>
-    </BrowserRouter>
+    <RecoilRoot>
+      <BrowserRouter>
+        <ChakraProvider theme={theme} >
+          <ColorModeScript initialColorMode={theme.config.initialColorMode} />
+          <ColorProvider>
+            <App />
+          </ColorProvider>
+        </ChakraProvider>
+      </BrowserRouter>
+    </RecoilRoot>
   </StrictMode>,
 )
