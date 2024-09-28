@@ -26,6 +26,7 @@ export default function SignupCard() {
 
   const [showPassword, setShowPassword] = useState(false)
   const setAuthScreen = useSetRecoilState(authScreenAtom);
+  const setUser = useSetRecoilState(userAtom);
 
   const [inputs, setInputs] = useState({
     name: '',
@@ -35,8 +36,6 @@ export default function SignupCard() {
   });
 
   const showToast = useShowToast();
-
-  const setUser = useSetRecoilState(userAtom);
 
   const handleSignup = async () => {
     try {
@@ -58,7 +57,7 @@ export default function SignupCard() {
       localStorage.setItem('user-info', JSON.stringify(data));
       setUser(data);
     } catch (error) {
-      console.log(error);
+      showToast('Error', error, 'error');
     }
   }
 
