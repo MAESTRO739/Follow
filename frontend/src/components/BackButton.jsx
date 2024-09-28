@@ -5,7 +5,7 @@ import { useNavigate } from "react-router-dom";
 import PropTypes from "prop-types";
 
 const BackButton = ({ to }) => {
-  const { bgColor, bgHoverColor, borderColor } = useColors();
+  const { bgColor, bgHoverColor, borderColor, buttonIconColor } = useColors();
   const navigate = useNavigate();
 
   return (
@@ -17,7 +17,7 @@ const BackButton = ({ to }) => {
         variant="solid"
         bg={bgColor}
         sx={{
-          svg: { color: 'white' },
+          svg: { color: buttonIconColor },
         }}
         _hover={{
           bg: bgHoverColor,

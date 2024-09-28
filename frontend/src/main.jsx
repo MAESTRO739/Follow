@@ -77,6 +77,10 @@ const colors = {
     hoverBg: {
       light: '#424242',
       dark: '#cccccc'
+    },
+    icon: {
+      light: '#000000',
+      dark: '#BCBDBF'
     }
   },
 };

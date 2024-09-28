@@ -15,6 +15,7 @@ export const ColorProvider = ({ children }) => {
 	const buttonBgColor = useColorModeValue('buttonColors.bg.light', 'buttonColors.bg.dark');
   const buttonTextColor = useColorModeValue('buttonColors.text.light', 'buttonColors.text.dark');
 	const buttonHoverBgColor = useColorModeValue('buttonColors.hoverBg.light', 'buttonColors.hoverBg.dark');
+	const buttonIconColor = useColorModeValue('buttonColors.icon.light', 'buttonColors.icon.dark');
 
 	const colors = {
 		bgColor,
@@ -28,7 +29,8 @@ export const ColorProvider = ({ children }) => {
 		countColor,
 		buttonBgColor,
 		buttonTextColor,
-		buttonHoverBgColor
+		buttonHoverBgColor,
+		buttonIconColor
 	};
 
 	return (

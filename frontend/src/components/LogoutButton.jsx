@@ -7,7 +7,7 @@ import userAtom from '../atoms/userAtom';
 import useShowToast from '../hooks/useShowToast';
 
 const LogoutButton = () => {
-  const { bgColor, bgHoverColor, borderColor } = useColors();
+  const { bgColor, bgHoverColor, borderColor, buttonIconColor } = useColors();
 
   const setUser = useSetRecoilState(userAtom);
 
@@ -44,7 +44,7 @@ const LogoutButton = () => {
         variant="solid"
         bg={bgColor}
         sx={{
-          svg: { color: 'gray' },
+          svg: { color: buttonIconColor },
         }}
         _hover={{
           bg: bgHoverColor,
