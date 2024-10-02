@@ -67,7 +67,7 @@ export default function LoginCard() {
           </Heading>
         </Stack>
         <Box
-          rounded={'lg'}
+          rounded={'xl'}
           bg={bgColor}
           boxShadow={'lg'}
           p={8}

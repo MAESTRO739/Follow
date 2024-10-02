@@ -1,9 +1,10 @@
+import { Box } from "@chakra-ui/react"
 import UserHeader from "../components/UserHeader"
 import UserPost from "../components/UserPost"
 
 const UserPage = () => {
   return (
-    <>
+    <Box mb={16}>
       <UserHeader />
       <UserPost 
         likes={492}
@@ -41,7 +42,7 @@ const UserPage = () => {
         postTitle={'This is my first post!'}
         createdAt={'Sep 16, 2024'}
       />
-    </>
+    </Box>
   )
 } 
 

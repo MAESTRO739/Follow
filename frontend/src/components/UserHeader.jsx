@@ -43,10 +43,10 @@ const UserHeader = () => {
               name="Mark Zuckerberg"
               src="zuck-avatar.png"
               size={{ base: 'lg', md: 'xl' }}
+              showBorder={true}
               borderWidth={'1px'}
               borderStyle={'solid'}
               borderColor={avatarBorderColor}
-              showBorder={true}
             />
           </Box>
         </Flex>
@@ -79,7 +79,7 @@ const UserHeader = () => {
                 </MenuButton>
                 <Portal>
                   <MenuList bg={bgColor}>
-                    <MenuItem bg={bgColor} onClick={copyURL}>Copy Link</MenuItem>
+                    <MenuItem bg={bgColor} onClick={copyURL}>Copy link</MenuItem>
                   </MenuList>
                 </Portal>
               </Menu>

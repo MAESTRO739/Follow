@@ -21,7 +21,7 @@ const ThreeDotsIcon = ({ iconHoverColor, bgColor, copyURL }) => (
       </MenuButton>
       <Portal>
         <MenuList bg={bgColor}>
-          <MenuItem bg={bgColor} onClick={copyURL}>Copy Link</MenuItem>
+          <MenuItem bg={bgColor} onClick={copyURL}>Copy link</MenuItem>
         </MenuList>
       </Portal>
     </Menu>
