@@ -7,6 +7,7 @@ import UserInfo from "./UserInfo"
 import AvatarGroup from "./ThreadAvatars"
 import ThreeDotsIcon from "./ThreeDotsIcon"
 import useShowToast from "../hooks/useShowToast"
+import { Link as RouterLink } from 'react-router-dom';
 
 const UserPost = ({ likes, replies, reposts, shares, postImage, postTitle, createdAt }) => {
   const { bgColor, 
@@ -24,14 +25,14 @@ const UserPost = ({ likes, replies, reposts, shares, postImage, postTitle, creat
   const showToast = useShowToast();
 
   const copyURL = () => {
-    const postURL = 'http://localhost:5173/markzuckerberg/post/1';
+    const postURL = 'http://localhost:5173/Lasch739/post/1';
     navigator.clipboard.writeText(postURL).then(() => {
       showToast('Post link copied', '', 'success');
     });
   };
 
   return (
-    <Link href={'/markzuckerberg/post/1'} _hover={{ textDecoration: 'none' }}>
+    <Link as={RouterLink} to={'/Lasch739/post/1'} _hover={{ textDecoration: 'none' }}>
       <Box 
         bg={bgColor} 
         border={'1px solid'}

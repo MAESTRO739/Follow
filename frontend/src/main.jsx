@@ -99,5 +99,5 @@ createRoot(document.getElementById('root')).render(
         </ChakraProvider>
       </BrowserRouter>
     </RecoilRoot>
-  </StrictMode>,
+  </StrictMode>
 )

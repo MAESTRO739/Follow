@@ -7,7 +7,7 @@ import userAtom from '../atoms/userAtom';
 import useShowToast from '../hooks/useShowToast';
 
 const LogoutButton = () => {
-  const { bgColor, bgHoverColor, borderColor, buttonIconColor } = useColors();
+  const { bgColor, bgHoverColor, avatarBorderColor, buttonIconColor } = useColors();
 
   const setUser = useSetRecoilState(userAtom);
 
@@ -30,8 +30,9 @@ const LogoutButton = () => {
 
       localStorage.removeItem('user-info');
       setUser(null);
+      showToast('Logged out', '', 'success');
     } catch (error) {
-      showToast('Error', error, 'error');
+      showToast('Error', error.message, 'error');
     }
   }
 
@@ -56,7 +57,7 @@ const LogoutButton = () => {
           width: "30px",
         }}
         border={'1px solid'} 
-        borderColor={borderColor}
+        borderColor={avatarBorderColor}
         transition="transform 0.2s ease-in-out"
         onClick={handleLogout}
       />

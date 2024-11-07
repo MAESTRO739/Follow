@@ -5,7 +5,7 @@ import { useNavigate } from "react-router-dom";
 import PropTypes from "prop-types";
 
 const BackButton = ({ to }) => {
-  const { bgColor, bgHoverColor, borderColor, buttonIconColor } = useColors();
+  const { bgColor, bgHoverColor, avatarBorderColor, buttonIconColor } = useColors();
   const navigate = useNavigate();
 
   return (
@@ -29,7 +29,7 @@ const BackButton = ({ to }) => {
           width: "30px",
         }}
         border={'1px solid'} 
-        borderColor={borderColor}
+        borderColor={avatarBorderColor}
         transition="transform 0.2s ease-in-out"
         onClick={() => navigate(to)}
       />

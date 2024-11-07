@@ -30,6 +30,7 @@ export default function EditProfilePage() {
   });
 
   const fileRef = useRef(null);
+  const [updating, setUpdating] = useState(false);
 
   const showToast = useShowToast();
 
@@ -37,6 +38,12 @@ export default function EditProfilePage() {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+
+    if (updating) {
+      return;
+    }
+
+    setUpdating(true);
 
     try {
       const res = await fetch(`/api/users/update/${user._id}`, {
@@ -59,6 +66,8 @@ export default function EditProfilePage() {
       localStorage.setItem('user-info', JSON.stringify(data));
     } catch (error) {
       showToast('Error', error.message, 'error');
+    } finally {
+      setUpdating(false);
     }
   }
 
@@ -92,7 +101,7 @@ export default function EditProfilePage() {
                 />
               </Center>
               <Center w="full">
-                <Button w="full" onClick={() => fileRef.current.click()}>Change Avatar</Button>
+                <Button w="full" onClick={() => fileRef.current.click()}>Change avatar</Button>
                 <Input type="file" hidden ref={fileRef} onChange={handleImageChange} />
               </Center>
             </Stack>
@@ -157,6 +166,7 @@ export default function EditProfilePage() {
               _hover={{
                 bg: 'green.500',
               }}
+              isLoading={updating}
             >
               Submit
             </Button>

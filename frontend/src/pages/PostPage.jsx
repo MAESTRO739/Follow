@@ -21,7 +21,7 @@ const PostPage = () => {
   const showToast = useShowToast();
 
   const copyURL = () => {
-    const postURL = 'http://localhost:5173/markzuckerberg/post/1';
+    const postURL = 'http://localhost:5173/Lasch739/post/1';
     navigator.clipboard.writeText(postURL).then(() => {
       showToast('Post link copied', '', 'success');
     });
