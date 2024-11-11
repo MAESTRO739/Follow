@@ -5,8 +5,8 @@ import { useColors } from "../ColorContext"
 import PropTypes from 'prop-types'
 import UserInfo from "./UserInfo"
 import ThreadAvatars from "./ThreadAvatars"
-import ThreeDotsIcon from "./ThreeDotsIcon"
-import useShowToast from "../hooks/useShowToast"
+// import ThreeDotsIcon from "./ThreeDotsIcon"
+// import useShowToast from "../hooks/useShowToast"
 import { Link as RouterLink, useLocation } from 'react-router-dom';
 
 const UserPost = ({ likes, replies, reposts, shares, postImage, postTitle, createdAt }) => {
@@ -22,15 +22,15 @@ const UserPost = ({ likes, replies, reposts, shares, postImage, postTitle, creat
 
   const [liked, setLiked] = useState(false)
 
-  const showToast = useShowToast();
+  // const showToast = useShowToast();
   const location = useLocation();
 
-  const copyURL = () => {
-    const postURL = 'http://localhost:5173/Lasch739/post/1';
-    navigator.clipboard.writeText(postURL).then(() => {
-      showToast('Post link copied', '', 'success');
-    });
-  };
+  // const copyURL = () => {
+  //   const postURL = 'http://localhost:5173/Lasch739/post/1';
+  //   navigator.clipboard.writeText(postURL).then(() => {
+  //     showToast('Post link copied', '', 'success');
+  //   });
+  // };
 
   return (
     <Link as={RouterLink} to={'/Lasch739/post/1'} state={{ from: location }} _hover={{ textDecoration: 'none' }}>
@@ -62,8 +62,8 @@ const UserPost = ({ likes, replies, reposts, shares, postImage, postTitle, creat
 
           <Flex gap={1} flexDirection={'column'} minWidth={0} flex={1}>
             <Flex w={'full'} alignItems={'flex-start'} justifyContent={'space-between'} mt={{ base: -2, md: 0 }} mb={{ base: 2, md: 0 }}>
-              <UserInfo postTextColor={postTextColor} name={'Mark Zuckerberg'} username={'MarkZuckerberg'} createdAt={createdAt} />
-              <ThreeDotsIcon iconHoverColor={iconHoverColor} bgColor={bgColor} copyURL={copyURL} />
+              <UserInfo name={'Mark Zuckerberg'} username={'MarkZuckerberg'} createdAt={createdAt} />
+              {/* <ThreeDotsIcon iconHoverColor={iconHoverColor} bgColor={bgColor} copyURL={copyURL} /> */}
             </Flex>
 
             <Text color={postTextColor} fontSize={'md'} whiteSpace="normal" wordBreak="break-word" lineHeight={'1.3'} mt={-4}>

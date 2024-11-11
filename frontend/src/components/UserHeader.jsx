@@ -8,6 +8,7 @@ import { useRecoilValue } from 'recoil';
 import userAtom from '../atoms/userAtom';
 import { Link as RouterLink, useLocation } from 'react-router-dom';
 import { useState } from 'react';
+import { CopyIcon } from '@chakra-ui/icons';
 
 const UserHeader = ({ user }) => {
   const { 
@@ -133,8 +134,11 @@ const UserHeader = ({ user }) => {
                   <CgMoreO size={24}/>
                 </MenuButton>
                 <Portal>
-                  <MenuList bg={bgColor}>
-                    <MenuItem bg={bgColor} onClick={copyURL}>Copy link</MenuItem>
+                  <MenuList bg={bgColor} px={2}>
+                    <MenuItem bg={bgColor} fontWeight={'600'} justifyContent={'space-between'} px={3} borderRadius={'full'} _hover={{ bg: bgHoverColor }} onClick={copyURL}>
+                      <Text>Copy link</Text>
+                      <CopyIcon width={5} height={5} />
+                    </MenuItem>
                   </MenuList>
                 </Portal>
               </Menu>
@@ -142,7 +146,7 @@ const UserHeader = ({ user }) => {
           </Flex>
         </Flex>
 
-        {currentUser && currentUser._id === user._id && (
+        {currentUser?._id === user._id && (
           <Flex w={'full'} mb={4} mt={2}>
             <Link as={RouterLink} to={'/edit-profile'} state={{ from: location }} _hover={{ textDecoration: 'none' }} w={'full'}>
               <Button 
@@ -165,7 +169,7 @@ const UserHeader = ({ user }) => {
           </Flex>
         )}
 
-        {currentUser && currentUser._id !== user._id && (
+        {currentUser?._id !== user._id && (
           <Button 
             bg={following ? 'transparent' : buttonBgColor}
             _hover={{

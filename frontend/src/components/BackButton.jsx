@@ -40,5 +40,5 @@ const BackButton = ({ to }) => {
 export default BackButton;
 
 BackButton.propTypes = {
-  to: PropTypes.string.isRequired
+  to: PropTypes.string
 }

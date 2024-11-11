@@ -37,7 +37,7 @@ const Header = ({ user }) => {
       />
 
       {user && (
-        <Link as={RouterLink} to={`/${user.username}`} state={{ from: location }} ml={16}>
+        <Link as={RouterLink} to={`/${user.username}`} ml={16}>
           <RxAvatar size={28} />
         </Link>
       )}

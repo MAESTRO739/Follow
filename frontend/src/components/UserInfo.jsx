@@ -1,8 +1,11 @@
 import { Flex, Image, Text } from "@chakra-ui/react";
 import PropTypes from "prop-types";
 import { useNavigate } from "react-router-dom";
+import { useColors } from "../ColorContext";
 
-const UserInfo = ({ postTextColor, name, username, createdAt }) => {
+const UserInfo = ({ name, username, createdAt }) => {
+  const { postTextColor } = useColors();
+
   const navigate = useNavigate();
 
   return (
@@ -67,7 +70,6 @@ const UserInfo = ({ postTextColor, name, username, createdAt }) => {
 export default UserInfo;
 
 UserInfo.propTypes = {
-  postTextColor: PropTypes.string.isRequired,
   name: PropTypes.string.isRequired,
   username: PropTypes.string.isRequired,
   createdAt: PropTypes.string.isRequired

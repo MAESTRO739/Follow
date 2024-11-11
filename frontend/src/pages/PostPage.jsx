@@ -1,7 +1,7 @@
 import { Avatar, Box, Flex, Image, Text } from '@chakra-ui/react'
 import { useColors } from '../ColorContext';
 import UserInfo from '../components/UserInfo';
-import ThreeDotsIcon from '../components/ThreeDotsIcon';
+// import ThreeDotsIcon from '../components/ThreeDotsIcon';
 import Actions from '../components/Actions';
 import { useState } from 'react';
 import Comment from '../components/Comment';
@@ -49,8 +49,8 @@ const PostPage = () => {
               borderStyle={'solid'}
               borderColor={avatarBorderColor}
             />
-            <UserInfo postTextColor={postTextColor} name={'Mark Zuckerberg'} username={'MarkZuckerberg'} createdAt={'1d'}/>
-            <ThreeDotsIcon iconHoverColor={iconHoverColor} bgColor={bgColor} copyURL={copyURL} />
+            <UserInfo name={'Mark Zuckerberg'} username={'MarkZuckerberg'} createdAt={'1d'}/>
+            {/* <ThreeDotsIcon user={user} copyURL={copyURL} /> */}
           </Flex>
 
           <Text color={postTextColor} fontSize={'lg'} whiteSpace="normal" wordBreak="break-word" mt={-2.5} lineHeight={'1.3'}>

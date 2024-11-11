@@ -13,7 +13,6 @@ const Post = ({ post, postedBy }) => {
   const { bgColor, 
           borderColor, 
           avatarBorderColor, 
-          iconHoverColor, 
           bgHoverColor, 
           threadColor, 
           postTextColor
@@ -52,6 +51,28 @@ const Post = ({ post, postedBy }) => {
     });
   };
 
+  const handleDelete = async () => {
+    try {
+      if (!window.confirm('Are you sure you want to delete this post?')) {
+        return;
+      }
+
+      const res = await fetch(`api/posts/${post._id}`, {
+        method: 'DELETE'
+      });
+      const data = await res.json();
+
+      if (data.error) {
+        showToast('Error', data.error, 'error');
+        return;
+      }
+
+      showToast('Post deleted', '', 'success');
+    } catch (error) {
+      showToast('Error', error.message, 'error');
+    }
+  };
+
   if (!user) {
     return null;
   }
@@ -62,7 +83,7 @@ const Post = ({ post, postedBy }) => {
         bg={bgColor}
         border={'1px solid'}
         borderColor={borderColor}
-        borderBottom={'none'}
+        borderTop={'none'}
         pl={6}
         pr={6}
         boxShadow="lg" 
@@ -94,8 +115,8 @@ const Post = ({ post, postedBy }) => {
 
           <Flex gap={1} flexDirection={'column'} minWidth={0} flex={1}>
             <Flex w={'full'} alignItems={'flex-start'} justifyContent={'space-between'} mt={{ base: -2, md: 0 }} mb={{ base: 2, md: 0 }}>
-              <UserInfo postTextColor={postTextColor} name={user?.name} username={user?.username} createdAt={new Date(post.createdAt).toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' })} />
-              <ThreeDotsIcon iconHoverColor={iconHoverColor} bgColor={bgColor} copyURL={copyURL} />
+              <UserInfo name={user?.name} username={user?.username} createdAt={new Date(post.createdAt).toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' })} />
+              <ThreeDotsIcon user={user} copyURL={copyURL} handleDelete={handleDelete} />
             </Flex>
 
             <Text color={postTextColor} fontSize={'md'} whiteSpace="normal" wordBreak="break-word" lineHeight={'1.3'} mt={-4}>

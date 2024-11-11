@@ -40,16 +40,16 @@ const HomePage = () => {
       {!loading && posts.length === 0 && <h1>Follow someone to start seeing posts</h1>}
 
       {loading && (
-        <Flex justify="center">
+        <Flex justify="center" my={12}>
           <Spinner size={'xl'} />
         </Flex>
       )}
 
-        {posts.map((post) => (
-          <Box key={post._id} _first={{ borderTopRadius: '2xl', overflow: 'hidden' }} _last={{ borderBottom: '1px solid', borderBottomColor: borderColor }}>
-            <Post post={post} postedBy={post.postedBy} />
-          </Box>
-        ))}
+      {posts.map((post) => (
+        <Box key={post._id} _first={{ borderTopRadius: '2xl', overflow: 'hidden', borderTop: '1px solid', borderTopColor: borderColor }}>
+          <Post post={post} postedBy={post.postedBy} />
+        </Box>
+      ))}
     </Flex>
   );
 };

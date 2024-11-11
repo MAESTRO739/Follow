@@ -3,7 +3,7 @@ import { useState } from "react"
 import { useColors } from "../ColorContext";
 import UserInfo from "./UserInfo";
 import PropTypes from "prop-types";
-import ThreeDotsIcon from "./ThreeDotsIcon";
+// import ThreeDotsIcon from "./ThreeDotsIcon";
 import Actions from "./Actions";
 
 const Comment = ({ userAvatar, name, username, commentText, likes, replies, reposts, shares, createdAt, copyURL }) => {
@@ -35,8 +35,8 @@ const Comment = ({ userAvatar, name, username, commentText, likes, replies, repo
 
           <Flex w={'full'} flexDirection={'column'} minWidth={0}>
             <Flex w={'full'} alignItems={'flex-start'} justifyContent={'space-between'} mt={{ base: -2, md: 0 }}>
-              <UserInfo postTextColor={postTextColor} name={name} username={username} createdAt={createdAt} />
-              <ThreeDotsIcon iconHoverColor={iconHoverColor} bgColor={bgColor} copyURL={copyURL} />
+              <UserInfo name={name} username={username} createdAt={createdAt} />
+              {/* <ThreeDotsIcon user={user} copyURL={copyURL} /> */}
             </Flex>
 
             <Text color={postTextColor} fontSize={'md'} whiteSpace="normal" wordBreak="break-word" mt={{ base: -1, md: -3.5 }} lineHeight={'1.3'}>
