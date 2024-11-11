@@ -1,10 +1,102 @@
-import { Flex, Box, Text } from "@chakra-ui/react"
+import { Flex, Box, Text, Modal, ModalOverlay, ModalContent, ModalCloseButton, ModalHeader, FormControl, ModalBody, Input, ModalFooter, Button, useDisclosure } from "@chakra-ui/react"
 import PropTypes from "prop-types";
+import { useColors } from "../ColorContext";
+import { useState } from "react";
+import useShowToast from "../hooks/useShowToast";
+import userAtom from "../atoms/userAtom";
+import { useRecoilValue } from "recoil";
 
-const Actions = ({ liked, setLiked, iconHoverColor, countColor, likes, replies, reposts, shares }) => {
+const Actions = ({ post: post_}) => {
+	const { iconHoverColor, countColor, bgColor, avatarBorderColor } = useColors();
+
+	const user = useRecoilValue(userAtom);
+	const [liked, setLiked] = useState(post_.likes.includes(user?._id));
+	const showToast = useShowToast();
+	const [post, setPost] = useState(post_);
+	const [isLiking, setIsLiking] = useState(false);
+	const [isReplying, setIsReplying] = useState(false);
+	const { isOpen, onOpen, onClose } = useDisclosure()
+	const [reply, setReply] = useState('');
+
+	const handleLikeAndUnlike = async () => {
+		if (!user) { 
+			return showToast('Error', 'You must be logged in to like a post', 'error') 
+		};
+
+		if (isLiking) {
+			return;
+		}
+
+		setIsLiking(true);
+
+		try {
+			const res = await fetch(`api/posts/like/${post._id}`, {
+				method: 'PUT',
+				headers: {
+					'Content-Type': 'application/json',
+				}
+			});
+			const data = await res.json();
+
+			if (data.error) {
+				return showToast('Error', data.error, 'error');
+			}
+
+			if (!liked) {
+				setPost({ ...post, likes: [...post.likes, user._id] });
+			} else {
+				setPost({ ...post, likes: post.likes.filter((id) => id !== user._id) });
+			}
+
+			setLiked(!liked);
+		} catch (error) {
+			showToast('Error', error.message, 'error');
+		} finally {
+			setIsLiking(false);
+		}
+	};
+
+	const handleReply = async () => {
+		if (!user) {
+			return showToast('Error', 'You must be logged in to reply to a post', 'error');
+		}
+
+		if (isReplying) {
+			return;
+		}
+
+		setIsReplying(true);
+
+		try {
+			const res = await fetch(`api/posts/reply/${post._id}`, {
+				method: 'PUT',
+				headers: {
+					'Content-Type': 'application/json',
+				},
+				body: JSON.stringify({ text: reply }),
+			});
+			const data = await res.json();
+
+			if (data.error) {
+				return showToast('Error', data.error, 'error');
+			}
+
+			setPost({ ...post, replies: [...post.replies, data.reply] });
+
+			showToast('Reply posted', '', 'success');
+
+			onClose();
+			setReply('');
+		} catch (error) {
+			showToast('Error', error.message, 'error');
+		} finally {
+			setIsReplying(false);
+		}
+	}
+
   return (
   	<Flex gap={3} ml={'-8px'} minWidth={0} overflow="hidden" cursor="pointer" onClick={(e) => e.preventDefault()}>
-			<Flex alignItems={"center"} onClick={() => setLiked(!liked)}>
+			<Flex alignItems={"center"} onClick={handleLikeAndUnlike}>
 				<Box
 					className='icon-container'
 					_hover={{backgroundColor: iconHoverColor}}
@@ -31,9 +123,10 @@ const Actions = ({ liked, setLiked, iconHoverColor, countColor, likes, replies, 
 						></path>
 					</svg>
 				</Box>
-				<Text color={countColor} fontSize="sm" ml={'-2px'}>{likes + (liked ? 1 : 0)}</Text>
+				<Text color={countColor} fontSize="sm" ml={'-2px'}>{post.likes.length}</Text>
 			</Flex>
-			<Flex alignItems={"center"}>
+			
+			<Flex alignItems={"center"} transition="transform 0.2s ease-in-out" onClick={onOpen}>
 				<Box 
 					className='icon-container' 
 					_hover={{ backgroundColor: iconHoverColor }}
@@ -49,7 +142,6 @@ const Actions = ({ liked, setLiked, iconHoverColor, countColor, likes, replies, 
 						role='img'
 						viewBox='0 0 24 24'
 						width='20'
-						// onClick={onOpen}
 					>
 						<title>Comment</title>
 						<path
@@ -61,8 +153,9 @@ const Actions = ({ liked, setLiked, iconHoverColor, countColor, likes, replies, 
 						></path>
 					</svg>
 				</Box>
-				<Text color={countColor} fontSize="sm" ml={'-2px'}>{replies}</Text>
+				<Text color={countColor} fontSize="sm" ml={'-2px'}>{post.replies.length}</Text>
 			</Flex>
+			
 			<Flex alignItems={"center"}>
 				<Box 
 					className='icon-container' 
@@ -73,8 +166,9 @@ const Actions = ({ liked, setLiked, iconHoverColor, countColor, likes, replies, 
 				>
 					<RepostSVG />
 				</Box>
-				<Text color={countColor} fontSize="sm" ml={'-2px'}>{reposts}</Text>
+				<Text color={countColor} fontSize="sm" ml={'-2px'}>{post.reposts.length}</Text>
 			</Flex>
+
 			<Flex alignItems={"center"}>
 				<Box 
 					className='icon-container' 
@@ -86,8 +180,30 @@ const Actions = ({ liked, setLiked, iconHoverColor, countColor, likes, replies, 
 				>
 					<ShareSVG />
 				</Box>
-				<Text color={countColor} fontSize="sm" ml={'-2px'}>{shares}</Text>
+				<Text color={countColor} fontSize="sm" ml={'-2px'}>{post.shares.length}</Text>
 			</Flex>
+
+			<Modal
+				isOpen={isOpen}
+				onClose={onClose}
+			>
+				<ModalOverlay />
+				<ModalContent bg={bgColor} border={'1px solid'} borderColor={avatarBorderColor}>
+					<ModalHeader>Reply</ModalHeader>
+					<ModalCloseButton />
+					<ModalBody pb={6}>
+						<FormControl>
+							<Input placeholder="Your reply..." value={reply} onChange={(e) => setReply(e.target.value)} />
+						</FormControl>
+					</ModalBody>
+
+					<ModalFooter>
+						<Button colorScheme='blue' mr={3} isLoading={isReplying} onClick={handleReply}>
+							Reply
+						</Button>
+					</ModalFooter>
+				</ModalContent>
+			</Modal>
 		</Flex>
   )
 }
@@ -146,14 +262,7 @@ const ShareSVG = () => {
 };
 
 Actions.propTypes = {
-  liked: PropTypes.bool.isRequired,
-  setLiked: PropTypes.func.isRequired,
-  iconHoverColor: PropTypes.string.isRequired,
-  countColor: PropTypes.string.isRequired,
-  likes: PropTypes.number.isRequired,
-  replies: PropTypes.number.isRequired,
-  reposts: PropTypes.number.isRequired,
-  shares: PropTypes.number.isRequired
+  post: PropTypes.object
 };
 
 export default Actions

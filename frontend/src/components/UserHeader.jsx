@@ -6,7 +6,7 @@ import useShowToast from '../hooks/useShowToast';
 import PropTypes from 'prop-types';
 import { useRecoilValue } from 'recoil';
 import userAtom from '../atoms/userAtom';
-import { Link as RouterLink } from 'react-router-dom';
+import { Link as RouterLink, useLocation } from 'react-router-dom';
 import { useState } from 'react';
 
 const UserHeader = ({ user }) => {
@@ -23,9 +23,10 @@ const UserHeader = ({ user }) => {
         } = useColors();
 
   const showToast = useShowToast();
+  const location = useLocation();
 
   const currentUser = useRecoilValue(userAtom);
-  const [following, setFollowing] = useState(user.followers.includes(currentUser._id));
+  const [following, setFollowing] = useState(user.followers.includes(currentUser?._id));
 
   const copyURL = () => {
     const currentURL = window.location.href;
@@ -143,7 +144,7 @@ const UserHeader = ({ user }) => {
 
         {currentUser && currentUser._id === user._id && (
           <Flex w={'full'} mb={4} mt={2}>
-            <Link as={RouterLink} to={'/edit-profile'} _hover={{ textDecoration: 'none' }} w={'full'}>
+            <Link as={RouterLink} to={'/edit-profile'} state={{ from: location }} _hover={{ textDecoration: 'none' }} w={'full'}>
               <Button 
                 bg={'transparent'}
                 _hover={{

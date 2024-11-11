@@ -112,7 +112,7 @@ const CreatePostButton = () => {
                 value={postText}
                 onChange={handleTextChange}
               />
-              <Text fontSize={'xs'} fontWeight={'bold'} textAlign={'right'} m={1}>
+              <Text color={'gray.light'} fontSize={'xs'} fontWeight={'bold'} textAlign={'right'} m={1} mt={1.5}>
                 {remainingChars}/{MAX_CHARS}
               </Text>
 

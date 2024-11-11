@@ -8,22 +8,11 @@ import { RxAvatar } from 'react-icons/rx';
 
 
 const Header = ({ user }) => {
-  const { colorMode, toggleColorMode } = useColorMode()
+  const { colorMode, toggleColorMode } = useColorMode();
   const location = useLocation();
 
-  let backButtonTo = '/';
-  let showBackButton = true;
-  let username = '';
-
-  if (location.pathname === '/' || location.pathname === '/auth') {
-    showBackButton = false;
-  } else if (location.pathname.includes(`/post/`)) {
-    const pathParts = location.pathname.split('/');
-    username = pathParts[1];
-    backButtonTo = `/${username}`;
-  } else if (location.pathname.includes(`edit-profile`)) {
-    backButtonTo = `/${user.username}`;
-  }
+  const backButtonTo = location.state?.from || '/';
+  const showBackButton = location.pathname !== '/' && location.pathname !== '/auth';
 
   return (
     <Flex position="relative" justifyContent="center" alignItems="center" mt={5} mb={5}>
@@ -48,7 +37,7 @@ const Header = ({ user }) => {
       />
 
       {user && (
-        <Link as={RouterLink} to={`/${user.username}`} ml={16}>
+        <Link as={RouterLink} to={`/${user.username}`} state={{ from: location }} ml={16}>
           <RxAvatar size={28} />
         </Link>
       )}
