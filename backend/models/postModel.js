@@ -37,17 +37,29 @@ const postSchema = mongoose.Schema({
       },
       avatar: {
         type: String
+      },
+      createdAt: {
+        type: Date,
+        default: Date.now
       }
     }
   ],
   reposts: {
     type: [mongoose.Schema.Types.ObjectId],
     ref: 'User',
-    default: []
+    createdAt: {
+      type: Date,
+      default: Date.now
+    },
+    default: [],
   },
   shares: {
     type: [mongoose.Schema.Types.ObjectId],
     ref: 'User',
+    createdAt: {
+      type: Date,
+      default: Date.now
+    },
     default: []
   }
 }, {

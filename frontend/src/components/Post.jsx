@@ -1,6 +1,6 @@
 import { Avatar, Box, Flex, Image, Link, Text } from "@chakra-ui/react"
 import Actions from "./Actions"
-import { useEffect, useState } from "react"
+import { useEffect, useRef, useState } from "react"
 import { useColors } from "../ColorContext"
 import PropTypes from 'prop-types'
 import UserInfo from "./UserInfo"
@@ -20,6 +20,7 @@ const Post = ({ post, postedBy }) => {
 
   const [user, setUser] = useState(null);
   const showToast = useShowToast();
+  const showToastRef = useRef(showToast);
   const location = useLocation();
   const navigate = useNavigate();
 
@@ -30,19 +31,19 @@ const Post = ({ post, postedBy }) => {
         const data = await res.json();
 
         if (data.error) {
-          showToast('Error', data.error, 'error');
+          showToastRef.current('Error', data.error, 'error');
           return;
         }
 
         setUser(data);
       } catch (error) {
-        showToast('Error', error.message, 'error');
+        showToastRef.current('Error', error.message, 'error');
         setUser(null);
       }
     };
 
     getUser();
-  }, [postedBy, showToast]);
+  }, [postedBy]);
 
   const copyURL = () => {
     const postURL = 'http://localhost:5173/Lasch739/post/1';
@@ -95,14 +96,14 @@ const Post = ({ post, postedBy }) => {
           <Flex flexDirection={"column"} alignItems={"center"}>
             <Avatar 
               size={"md"} 
-              name="Mark Zuckerberg" 
+              name={user?.name} 
               src={user?.avatar} 
               borderWidth={'1px'}
               borderStyle={'solid'}
               borderColor={avatarBorderColor}
               onClick={(e) => {
                 e.preventDefault()
-                navigate(`/${user.username}`)
+                navigate(`/${user?.username}`)
               }}
             />
             {post.replies.length > 0 && (

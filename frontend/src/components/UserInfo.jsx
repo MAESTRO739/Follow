@@ -19,6 +19,7 @@ const UserInfo = ({ name, username, createdAt }) => {
         alignItems="center" 
         gap={1} 
         mt={{ base: 2, md: 0 }} 
+        cursor={'pointer'}
         _hover={{ textDecoration: 'underline' }}
         onClick={(e) => {
           e.preventDefault()
@@ -46,6 +47,7 @@ const UserInfo = ({ name, username, createdAt }) => {
           whiteSpace="nowrap" 
           overflow="hidden" 
           textOverflow="ellipsis"
+          cursor={'pointer'}
           onClick={(e) => {
             e.preventDefault()
             navigate(`/${username}`)

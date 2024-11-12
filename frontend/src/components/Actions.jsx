@@ -68,7 +68,7 @@ const Actions = ({ post: post_}) => {
 		setIsReplying(true);
 
 		try {
-			const res = await fetch(`api/posts/reply/${post._id}`, {
+			const res = await fetch(`/api/posts/reply/${post._id}`, {
 				method: 'PUT',
 				headers: {
 					'Content-Type': 'application/json',

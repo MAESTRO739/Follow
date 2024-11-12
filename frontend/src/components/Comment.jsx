@@ -1,16 +1,10 @@
 import { Avatar, Box, Flex, Text } from "@chakra-ui/react"
-import { useState } from "react"
 import { useColors } from "../ColorContext";
 import UserInfo from "./UserInfo";
 import PropTypes from "prop-types";
-// import ThreeDotsIcon from "./ThreeDotsIcon";
-import Actions from "./Actions";
 
-const Comment = ({ userAvatar, name, username, commentText, likes, replies, reposts, shares, createdAt, copyURL }) => {
-  const { bgColor, borderColor, postTextColor, avatarBorderColor, iconHoverColor, countColor } = useColors();
-
-  const [liked, setLiked] = useState(false)
-
+const Comment = ({ reply }) => {
+  const { bgColor, borderColor, postTextColor, avatarBorderColor } = useColors();
   return (
     <>
       <Box
@@ -23,11 +17,11 @@ const Comment = ({ userAvatar, name, username, commentText, likes, replies, repo
         pr={6}
         borderTop={'none'}
       >
-        <Flex gap={3} pt={3.5} pb={1.5} w={'full'}>
+        <Flex gap={3} pt={3} pb={3} w={'full'}>
           <Avatar 
             size={'md'} 
-            name={name}
-            src={userAvatar} 
+            name={reply.name}
+            src={reply.avatar} 
             borderWidth={'1px'}
             borderStyle={'solid'}
             borderColor={avatarBorderColor}
@@ -35,24 +29,12 @@ const Comment = ({ userAvatar, name, username, commentText, likes, replies, repo
 
           <Flex w={'full'} flexDirection={'column'} minWidth={0}>
             <Flex w={'full'} alignItems={'flex-start'} justifyContent={'space-between'} mt={{ base: -2, md: 0 }}>
-              <UserInfo name={name} username={username} createdAt={createdAt} />
-              {/* <ThreeDotsIcon user={user} copyURL={copyURL} /> */}
+              <UserInfo name={reply.name} username={reply.username} createdAt={new Date(reply.createdAt).toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' })} />
             </Flex>
 
-            <Text color={postTextColor} fontSize={'md'} whiteSpace="normal" wordBreak="break-word" mt={{ base: -1, md: -3.5 }} lineHeight={'1.3'}>
-              {commentText}
+            <Text color={postTextColor} fontSize={'md'} whiteSpace="normal" wordBreak="break-word" mt={{ base: -1, md: 1 }} lineHeight={'1.3'}>
+              {reply.text}
             </Text>
-
-            <Actions 
-              liked={liked} 
-              setLiked={setLiked} 
-              iconHoverColor={iconHoverColor} 
-              countColor={countColor} 
-              likes={likes}
-              replies={replies}
-              reposts={reposts}
-              shares={shares}
-            />
           </Flex>
         </Flex>
       </Box>
@@ -63,14 +45,5 @@ const Comment = ({ userAvatar, name, username, commentText, likes, replies, repo
 export default Comment
 
 Comment.propTypes = {
-  userAvatar: PropTypes.string.isRequired,
-  name: PropTypes.string.isRequired,
-  username: PropTypes.string.isRequired,
-  createdAt: PropTypes.string.isRequired,
-  copyURL: PropTypes.func.isRequired,
-  commentText: PropTypes.string.isRequired,
-  likes: PropTypes.number.isRequired,
-  replies: PropTypes.number.isRequired,
-  reposts: PropTypes.number.isRequired,
-  shares: PropTypes.number.isRequired
+  reply: PropTypes.object.isRequired
 };

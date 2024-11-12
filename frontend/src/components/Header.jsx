@@ -11,7 +11,7 @@ const Header = ({ user }) => {
   const { colorMode, toggleColorMode } = useColorMode();
   const location = useLocation();
 
-  const backButtonTo = location.state?.from || '/';
+  const backButtonTo = location.state?.from?.pathname || location.state?.from || '/';
   const showBackButton = location.pathname !== '/' && location.pathname !== '/auth';
 
   return (

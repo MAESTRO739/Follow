@@ -4,35 +4,17 @@ import { useEffect, useRef, useState } from "react";
 import { useParams } from "react-router-dom";
 import useShowToast from "../hooks/useShowToast";
 import Post from "../components/Post";
+import useGetUserProfile from "../hooks/useGetUserProfile";
 
 const UserPage = () => {
-  const [user, setUser] = useState();
+  const { user, loading } = useGetUserProfile();
   const { username } = useParams();
   const showToast = useShowToast();
   const showToastRef = useRef(showToast);
-  const [loading, setLoading] = useState(true);
   const [posts, setPosts] = useState([]);
   const [fetchingPosts, setFetchingPosts] = useState(true);
 
   useEffect(() => {
-    const getUser = async () => {
-      try {
-        const res = await fetch(`api/users/profile/${username}`);
-        const data = await res.json();
-
-        if (data.error) {
-          showToastRef.current('Error', data.error, 'error');
-          return;
-        }
-
-        setUser(data);
-      } catch (error) {
-        showToastRef.current('Error', error.message, 'error');
-      } finally {
-        setLoading(false);
-      }
-    };
-
     const getPosts = async () => {
       setFetchingPosts(true);
 
@@ -54,7 +36,6 @@ const UserPage = () => {
       }
     };
 
-    getUser();
     getPosts();
   }, [username]);
 
